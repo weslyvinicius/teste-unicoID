@@ -1,0 +1,25 @@
+version: "3"
+services:
+  mydbSql-Sever:
+    image: mysql/mysql-server:8.0
+    command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    volumes:
+      - v-db-Mysql-data-unico:/var/lib/mysql
+      - v-db-Mysql-my-cnf-unico:/etc/mysql/conf.d/my.cnf
+      - v-db-Mysql-sql-unico:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=project_unico
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    ports:
+      - 3306:3306
+    networks:
+      - network_unico
+volumes:
+  v-db-Mysql-data-unico:
+  v-db-Mysql-my-cnf-unico:
+  v-db-Mysql-sql-unico:
+networks:
+  network_unico:
